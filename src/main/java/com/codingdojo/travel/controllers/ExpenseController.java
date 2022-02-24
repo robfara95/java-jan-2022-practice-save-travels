@@ -1,6 +1,5 @@
 package com.codingdojo.travel.controllers;
 
-import java.awt.print.Book;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,7 +53,7 @@ public class ExpenseController {
     
     @GetMapping("/expenses/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
-        Expense expense =  expenseService.findExpense(id);
+        Expense expense =  expenseService.getById(id);
         model.addAttribute("expense", expense);
         return "edit.jsp";
     }
@@ -67,5 +67,17 @@ public class ExpenseController {
             return "redirect:/expenses";
         }
     }
-
+    
+    @DeleteMapping("/expense/{id}")    
+    public String destroy(@PathVariable("id") Long id) {
+    	expenseService.deleteExpense(id);
+        return "redirect:/expenses";
+    }
+    
+    @GetMapping("/expenses/{id}")    
+    public String get(@PathVariable("id") Long id, Model model) {
+    	Expense expense =  expenseService.getById(id);
+    	model.addAttribute("expense", expense);
+        return "show.jsp";
+    }
 }
