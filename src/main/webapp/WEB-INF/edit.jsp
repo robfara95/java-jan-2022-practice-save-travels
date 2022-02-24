@@ -4,39 +4,25 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <%@ page isErrorPage="true" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Read Share</title>
+	<title>edit</title>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 	<div class="container">
 	
-		<table class="table">
-	    	<thead>
-	        	<tr>
-	          	  <th>Expense</th>
-	          	  <th>Vendor</th>
-	          	  <th>Amount</th>
-	        </tr>
-
-	   	 	</thead>
-	    	<tbody>
-	       		<c:forEach var="expense" items="${expenses}">
-					<tr>
-						<td><c:out value="${expense.name}"/></td>
-						<td><c:out value="${expense.vendor}"/></td>	
-						<td><c:out value="${expense.amount}"/></td>		
-						<td><a href="./expenses/edit/<c:out value="${expense.id}"/>">edit</a></td>	
-					</tr>
-				</c:forEach>
-	    	</tbody>
-		</table>		
-		
-		<form:form action="/expenses/process" method="POST"  modelAttribute="expense" >
+		<div id="header">
+			<h1>Edit Expense</h1>
+			<a href="/expenses">goback</a>
+		</div>		
+	
+		<form:form action="/expense/${expense.id}" method="POST"  modelAttribute="expense" >
+				<input type="hidden" name="_method" value="put">
 				<div class="form-group">
 					<form:label path="name">Expense Name</form:label>
 					<form:errors path="name" class="text-danger" />

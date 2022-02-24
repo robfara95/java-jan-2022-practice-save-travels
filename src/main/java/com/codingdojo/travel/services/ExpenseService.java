@@ -1,6 +1,10 @@
 package com.codingdojo.travel.services;
 
+import java.awt.print.Book;
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +28,17 @@ public class ExpenseService {
     public Expense create(Expense b) {
         return expenseRepository.save(b);
     }
+	public Expense findExpense(Long id) {
+        Optional<Expense> optionalExpense = expenseRepository.findById(id);
+        if(optionalExpense.isPresent()) {
+            return optionalExpense.get();
+        } else {
+            return null;
+        }
+	}
+	
+	public void updateExpense(@Valid Expense expense) {
+		expenseRepository.save(expense);		
+	}
 
 }
